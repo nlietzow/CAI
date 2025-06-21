@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAI Logo</title>
+    <style>
+        /* Basic styles for the container, adapted for Streamlit */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: transparent; /* Transparent background */
+            font-family: 'Montserrat', sans-serif; /* Ensure font is available or use a common one */
+            color: #333; /* Darker text for better visibility on light backgrounds */
+            overflow: hidden;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            font-size: 4rem; /* Slightly smaller for better fit */
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer; /* Indicates it's clickable */
+        }
+
+        .logo-container span {
+            display: inline-block;
+        }
+
+        /* Animation styles */
+        .dot {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dot.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .expanding-char {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-width 0.5s ease-in-out, opacity 0.3s ease-in;
+        }
+
+        .expanding-char.visible {
+            max-width: 1.2ch;
+            opacity: 1;
+            font-weight: 400;
+        }
+
+        /* Staggered delay for the "typing" effect */
+        .expanding-char.visible:nth-of-type(2) { transition-delay: 0.1s; }
+        .expanding-char.visible:nth-of-type(3) { transition-delay: 0.2s; }
+        .expanding-char.visible:nth-of-type(4) { transition-delay: 0.3s; }
+        .expanding-char.visible:nth-of-type(5) { transition-delay: 0.4s; }
+        .expanding-char.visible:nth-of-type(6) { transition-delay: 0.5s; }
+        .expanding-char.visible:nth-of-type(7) { transition-delay: 0.6s; }
+        .expanding-char.visible:nth-of-type(8) { transition-delay: 0.7s; }
+        .expanding-char.visible:nth-of-type(9) { transition-delay: 0.8s; }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container" id="logo-container">
+        <span>C</span>
+        <span class="expanding-char">O</span>
+        <span class="expanding-char">-</span>
+        <span class="expanding-char">C</span>
+        <span class="expanding-char">O</span>
+        <span class="expanding-char">U</span>
+        <span class="expanding-char">N</span>
+        <span class="expanding-char">S</span>
+        <span class="expanding-char">E</span>
+        <span class="expanding-char">L</span>
+        <span class="dot">.</span>
+        <span>A</span>
+        <span>I</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoContainer = document.getElementById('logo-container');
+            const dot = logoContainer.querySelector('.dot');
+            const expandingChars = logoContainer.querySelectorAll('.expanding-char');
+
+            function runAnimation() {
+                // 1. Reset animation
+                dot.classList.remove('visible');
+                expandingChars.forEach(char => char.classList.remove('visible'));
+
+                // Use a small timeout to allow the browser to process the class removal
+                setTimeout(() => {
+                    // 2. Show the dot
+                    setTimeout(() => {
+                        dot.classList.add('visible');
+                    }, 500); // Delay before dot appears
+
+                    // 3. Expand the letters
+                    setTimeout(() => {
+                        expandingChars.forEach(char => {
+                            char.classList.add('visible');
+                        });
+                    }, 1000); // Delay before letters expand
+                }, 100);
+            }
+
+            // Run animation on load
+            runAnimation();
+
+            // Add click listener to re-run the animation
+            logoContainer.addEventListener('click', runAnimation);
+        });
+    </script>
+
+</body>
+</html>

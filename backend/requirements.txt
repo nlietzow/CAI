@@ -1,0 +1,6 @@
+google-adk
+spacy # python -m spacy download en_core_web_sm
+rank_bm25
+pandas
+scikit-learn
+langchain-google-genai
