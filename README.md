@@ -1,10 +1,12 @@
 # CAI - Your Strategic Co-Counsel for Arbitration
 
-![img.png](img.png)
-
 CAI is an Vertex AI LLM-powered solution that acts as a strategic co-counsel for arbitration lawyers. It helps you build
 a winning legal strategy by reviewing your case, identifying factual and legal weaknesses, testing it against
 jurisprudence, and recommending stronger alternatives with a compelling visual output.
+
+<img src="img.png" alt="img" width="500"/>
+<img src="img_1.png" alt="img_1" width="500"/>
+
 
 ## The Challenge: Navigating International Arbitration
 
