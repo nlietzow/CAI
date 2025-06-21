@@ -1,5 +1,7 @@
 # CAI - Your Strategic Co-Counsel for Arbitration
 
+![img.png](img.png)
+
 CAI is an Vertex AI LLM-powered solution that acts as a strategic co-counsel for arbitration lawyers. It helps you build
 a winning legal strategy by reviewing your case, identifying factual and legal weaknesses, testing it against
 jurisprudence, and recommending stronger alternatives with a compelling visual output.
@@ -92,3 +94,6 @@ To start the backend API locally, navigate to the `backend/src` directory and ru
 ```bash
 adk web
 ```
+
+We have also deployed the backend API on a virtual machine using nginx as a reverse proxy to provide secure and reliable
+access to the service via HTTPS.
