@@ -6,10 +6,6 @@ from typing import List
 from sklearn.metrics.pairwise import cosine_similarity
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 if not "GOOGLE_API_KEY" in os.environ or not os.environ["GOOGLE_API_KEY"].strip():
     raise ValueError("GOOGLE_API_KEY environment variable is not set or is empty.")
 
