@@ -19,11 +19,11 @@ def search(keywords: List[str]):
     # Return just the summaries of the top results
     r = []
     for _, row in df.head(10).iterrows():
-        case_id = row['case'].get("Identifier", "").strip()
+        case_id = row["case"].get("Identifier", "").strip()
         if case_id:
             t = f"{case_id}: {row['summary']}"
         else:
-            t = row['summary']
+            t = row["summary"]
 
         r.append(t)
 

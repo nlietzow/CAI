@@ -26,17 +26,14 @@ except Exception as e:
     st.stop()
 
 # Initialize the Gemini model
-model = GenerativeModel('gemini-2.5-flash-lite-preview-06-17')
+model = GenerativeModel("gemini-2.5-flash-lite-preview-06-17")
 
 
 def init_session(user_id: str):
     url = f"{BASE_URL}/apps/{APP_NAME}/users/{user_id}/sessions"
     print(url)
     payload = json.dumps({})
-    headers = {
-        'accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
+    headers = {"accept": "application/json", "Content-Type": "application/json"}
     r = requests.request("POST", url, headers=headers, data=payload)
     r.raise_for_status()
     return r.json().get("id")
@@ -44,23 +41,16 @@ def init_session(user_id: str):
 
 def send_message_to_session(prompt: str, session_id: str, user_id: str):
     url = f"{BASE_URL}/run"
-    payload = json.dumps({
-        "appName": "strategy_agent",
-        "userId": user_id,
-        "sessionId": session_id,
-        "newMessage": {
-            "role": "user",
-            "parts": [
-                {
-                    "text": prompt
-                }
-            ]
-        },
-        "streaming": False
-    })
-    headers = {
-        'Content-Type': 'application/json'
-    }
+    payload = json.dumps(
+        {
+            "appName": "strategy_agent",
+            "userId": user_id,
+            "sessionId": session_id,
+            "newMessage": {"role": "user", "parts": [{"text": prompt}]},
+            "streaming": False,
+        }
+    )
+    headers = {"Content-Type": "application/json"}
 
     r = requests.request("POST", url, headers=headers, data=payload)
     r.raise_for_status()
@@ -69,12 +59,14 @@ def send_message_to_session(prompt: str, session_id: str, user_id: str):
     try:
         text = contents[-1]["content"]["parts"][0]["text"]
     except:
-        text = "An error occurred while processing your request. Please try again later."
+        text = (
+            "An error occurred while processing your request. Please try again later."
+        )
 
     updated_text = re.sub(
-        r'\b((?:IDS|ICSID)-\d+)\b',
-        r'[\1](https://jusmundi.com/en/search?query=\1&#page=1&lang=en)',
-        text
+        r"\b((?:IDS|ICSID)-\d+)\b",
+        r"[\1](https://jusmundi.com/en/search?query=\1&#page=1&lang=en)",
+        text,
     )
 
     yield updated_text
@@ -90,9 +82,7 @@ def handle_prompt(prompt):
     # Send the message to the Gemini model and stream the response
     with st.chat_message("CAI"):
         response_stream = send_message_to_session(
-            prompt,
-            st.session_state.chat_session,
-            USER_ID
+            prompt, st.session_state.chat_session, USER_ID
         )
 
         placeholder = st.empty()
@@ -130,11 +120,9 @@ with col2:
             with open("faq.md", "r", encoding="utf-8") as f:
                 faq_content = f.read()
 
-
             @st.dialog("Frequently Asked Questions")
             def show_faq():
                 st.markdown(faq_content)
-
 
             show_faq()
 
@@ -170,8 +158,8 @@ for message in st.session_state.chat_history:
 # --- Input Methods ---
 
 with stylable_container(
-        key="bottom_content",
-        css_styles="""
+    key="bottom_content",
+    css_styles="""
             {
                 position: fixed;
                 bottom: 100px;
@@ -206,8 +194,7 @@ elif audio_bytes and len(audio_bytes) > 0:
 
                 # Send audio to Gemini for transcription
                 response = model.generate_content(
-                    ["Transcribe this audio:", audio_part],
-                    stream=True
+                    ["Transcribe this audio:", audio_part], stream=True
                 )
 
                 transcribed_text = ""
@@ -220,7 +207,11 @@ elif audio_bytes and len(audio_bytes) > 0:
                 else:
                     # If transcription fails or is empty, ask the user to repeat.
                     st.session_state.chat_history.append(
-                        {"role": "model", "content": "I'm sorry, I couldn't understand the audio. Please try again."})
+                        {
+                            "role": "model",
+                            "content": "I'm sorry, I couldn't understand the audio. Please try again.",
+                        }
+                    )
                     st.rerun()
 
             except Exception as e:

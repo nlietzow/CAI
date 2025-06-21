@@ -5,6 +5,7 @@ from google.adk.agents import LlmAgent
 import sys
 
 sys.path.append("..")
+sys.path.append("../..")
 from functions.search import search
 
 
@@ -155,5 +156,10 @@ root_agent = LlmAgent(
 
     This step-by-step process ensures each result is displayed to the user before the next step begins. Do not combine steps.
     """,
-    sub_agents=[clarification_agent, retrieval_agent, initial_analysis_agent, post_analysis_agent]
+    sub_agents=[
+        clarification_agent,
+        retrieval_agent,
+        initial_analysis_agent,
+        post_analysis_agent,
+    ],
 )
