@@ -99,3 +99,10 @@ adk web
 
 We have also deployed the backend API on a virtual machine using nginx as a reverse proxy to provide secure and reliable
 access to the service via HTTPS.
+
+
+## Acknowledgements
+
+This project was created by the AI MEETS LAW team, consisting of **[Niclas Lietzow](https://github.com/nlietzow)**, **[Philipp Davydov](https://github.com/drodel01)**, **[Nils Model](https://github.com/nilsmodel)**, **Marc Pfeiffer**, **Evelina Judin** and **Maximilian Jaques**, during the **[Cambridge Hack-the-Law Hackathon 2025](https://hackthelaw-cambridge.com/)**.
+
+As a hackathon project, it serves as a rapid prototype to demonstrate a proof-of-concept within a limited timeframe.
