@@ -52,11 +52,6 @@ initial_analysis_agent = Agent(
     At the end of your response, include this sentence verbatim to help downstream routing:
     "The initial analysis is complete. Handing over to post-analysis for deeper discussion."
     """,
-    # instead give a summary of the work you have done: "I have found X documents, Y support the case, Z contradict the case, ... what do you want now? Arguments or more info on the case or what else?"
-    # ~ I am ready to analyze this together with you
-    # TODO: continue talking to last LLM indefinitely
-    # before_model_callback=log_query_to_model,
-    # after_model_callback=log_model_response,
 )
 
 post_analysis_agent = Agent(
@@ -73,11 +68,6 @@ post_analysis_agent = Agent(
     **TASK**
     Serve as a legal expert co-counsel to the user. Assist him with legal questions about the previous analysis, insight into details and potential new angles, strategies and any other questions. Refer to the previously done analysis that is available to you and quote parts from it if relevant.
     """,
-    # instead give a summary of the work you have done: "I have found X documents, Y support the case, Z contradict the case, ... what do you want now? Arguments or more info on the case or what else?"
-    # ~ I am ready to analyze this together with you
-    # TODO: continue talking to last LLM indefinitely
-    # before_model_callback=log_query_to_model,
-    # after_model_callback=log_model_response,
 )
 
 retrieval_agent = Agent(
@@ -98,8 +88,6 @@ retrieval_agent = Agent(
     Output this markdown table to the user!
     At the end of your response, include the following sentence verbatim to help downstream routing: "This concludes the file retrieval. Please confirm to continue with the in-depth analysis."
     """,
-    # before_model_callback=log_query_to_model,
-    # after_model_callback=log_model_response,
     tools=[get_similar_cases],
 )
 
@@ -116,15 +104,7 @@ clarification_agent = Agent(
     **TASK**
     Read the user prompt carefully keeping your objectives in mind. Then, in one prompt, ask the user up to three clarifying questions to help you obtain more clarity on your objectives.
     """,
-    # before_model_callback=log_query_to_model,
-    # after_model_callback=log_model_response,
 )
-
-# root_agent = SequentialAgent(
-#     name="analysis_starter",
-#     description="Retrieves similar cases to user case and analyses their strategy for weaknesses and strenghts, to help user build a strategy against the counterclaim he is facing.",
-#     sub_agents=[retrieval_agent, analysis_agent]
-# )
 
 root_agent = LlmAgent(
     name="agentic_co_counsel",
